@@ -24,9 +24,9 @@ class AuthController extends Controller
             'phone_no' => 'required|string|max:20',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
-            'address_by_divisions' => 'nullable|string|max:100',
-            'lab_name' => 'nullable|string|max:150',
-            'lab_address' => 'nullable|string|max:150',
+            'address_by_divisions' => 'required|in:Barishal,Chattogram,Dhaka,Khulna,Mymensingh,Rajshahi,Rangpur,Sylhet',
+            'lab_name' => 'required_if:role,lab|nullable|string|max:150',
+            'lab_address' => 'required_if:role,lab|nullable|string|max:150',
         ]);
 
         $status = $request->role === 'lab' ? 'inactive' : 'active';
@@ -74,6 +74,7 @@ class AuthController extends Controller
 
             if ($user->status !== 'active') {
                 Auth::logout();
+
                 return back()->withErrors([
                     'email' => 'Your account is inactive.',
                 ])->onlyInput('email');

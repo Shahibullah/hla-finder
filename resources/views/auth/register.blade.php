@@ -224,12 +224,6 @@
             color: #ffd8d8;
         }
 
-        .helper-text {
-            margin-top: 6px;
-            font-size: 13px;
-            opacity: 0.9;
-        }
-
         @media (max-width: 700px) {
             .theme-top-left {
                 top: 15px;
@@ -296,7 +290,7 @@
                         >
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="dob-group">
                         <label for="dob" class="form-label">Date of Birth</label>
                         <input
                             id="dob"
@@ -307,7 +301,7 @@
                         >
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="sex-group">
                         <label for="sex" class="form-label">Sex</label>
                         <select id="sex" name="sex" class="form-select">
                             <option value="">Select</option>
@@ -326,19 +320,23 @@
                             class="form-input"
                             placeholder="Enter phone number"
                             value="{{ old('phone_no') }}"
+                            required
                         >
                     </div>
 
                     <div class="form-group">
-                        <label for="address_by_divisions" class="form-label">Address</label>
-                        <input
-                            id="address_by_divisions"
-                            type="text"
-                            name="address_by_divisions"
-                            class="form-input"
-                            placeholder="Enter address"
-                            value="{{ old('address_by_divisions') }}"
-                        >
+                        <label for="address_by_divisions" class="form-label">Address by Division</label>
+                        <select id="address_by_divisions" name="address_by_divisions" class="form-select" required>
+                            <option value="">Select Division</option>
+                            <option value="Barishal" {{ old('address_by_divisions') === 'Barishal' ? 'selected' : '' }}>Barishal</option>
+                            <option value="Chattogram" {{ old('address_by_divisions') === 'Chattogram' ? 'selected' : '' }}>Chattogram</option>
+                            <option value="Dhaka" {{ old('address_by_divisions') === 'Dhaka' ? 'selected' : '' }}>Dhaka</option>
+                            <option value="Khulna" {{ old('address_by_divisions') === 'Khulna' ? 'selected' : '' }}>Khulna</option>
+                            <option value="Mymensingh" {{ old('address_by_divisions') === 'Mymensingh' ? 'selected' : '' }}>Mymensingh</option>
+                            <option value="Rajshahi" {{ old('address_by_divisions') === 'Rajshahi' ? 'selected' : '' }}>Rajshahi</option>
+                            <option value="Rangpur" {{ old('address_by_divisions') === 'Rangpur' ? 'selected' : '' }}>Rangpur</option>
+                            <option value="Sylhet" {{ old('address_by_divisions') === 'Sylhet' ? 'selected' : '' }}>Sylhet</option>
+                        </select>
                     </div>
 
                     <div class="form-group grid-full">
@@ -420,13 +418,19 @@
             const role = document.getElementById('role').value;
             const labNameGroup = document.getElementById('lab-name-group');
             const labAddressGroup = document.getElementById('lab-address-group');
+            const dobGroup = document.getElementById('dob-group');
+            const sexGroup = document.getElementById('sex-group');
 
             if (role === 'lab') {
                 labNameGroup.style.display = 'block';
                 labAddressGroup.style.display = 'block';
+                dobGroup.style.display = 'none';
+                sexGroup.style.display = 'none';
             } else {
                 labNameGroup.style.display = 'none';
                 labAddressGroup.style.display = 'none';
+                dobGroup.style.display = 'block';
+                sexGroup.style.display = 'block';
             }
         }
 
