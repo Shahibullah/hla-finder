@@ -23,14 +23,6 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-        }
-
-        .page {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
             position: relative;
             background-position: center;
             background-repeat: no-repeat;
