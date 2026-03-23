@@ -4,6 +4,12 @@ HLA Finder is a web-based system  designed to match donors and receivers based o
 The platform supports role-based access for Admin, Donor, Receiver, and Lab users.
 
 ---
+Contributors
+-Ahmmed Shahibullah Shahib
+-Md. Rashakh Rahman Shompod
+-Dabobbroto Chakroborty
+-Talha Bin Zakir
+
 
 ## 🚀 Features
 
