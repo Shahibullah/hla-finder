@@ -1,16 +1,16 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ThemeController;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\LabHlaController;
-use App\Http\Controllers\AdminUserController;
-use App\Http\Controllers\AccountController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ThemeController;
+use Illuminate\Support\Facades\Route;
 
 
 Route::post('/theme/toggle', [ThemeController::class, 'toggle'])->name('theme.toggle');
