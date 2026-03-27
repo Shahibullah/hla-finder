@@ -17,7 +17,7 @@ Contributors
 
 -Talha Bin Zakir
 
-SRS LINK: https://docs.google.com/document/d/1LdMNtSclSxGy5tdajgFbAcZRgrBahGdXMAsgVDw_nLw/edit?usp=sharing
+
 ## 🚀 Features
 
 ### 🔐 Authentication & Authorization
