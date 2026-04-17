@@ -1,0 +1,94 @@
+CREATE DATABASE IF NOT EXISTS hla_finder;
+USE hla_finder;
+
+--------------------------------------------------
+-- USERS TABLE
+--------------------------------------------------
+CREATE TABLE users (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('admin','donor','receiver','lab') DEFAULT 'receiver',
+    status VARCHAR(50) DEFAULT 'inactive',
+    phone_no VARCHAR(20) NULL,
+    address_by_divisions VARCHAR(255) NULL,
+    hla_type VARCHAR(255) NULL,
+    hla_class VARCHAR(50) NULL,
+    created_at TIMESTAMP NULL,
+    updated_at TIMESTAMP NULL
+);
+
+--------------------------------------------------
+-- MATCH REQUESTS TABLE
+--------------------------------------------------
+CREATE TABLE match_requests (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    receiver_id BIGINT UNSIGNED NOT NULL,
+    donor_id BIGINT UNSIGNED NOT NULL,
+    match_percentage INT DEFAULT 0,
+    status ENUM('pending','accepted','rejected') DEFAULT 'pending',
+    created_at TIMESTAMP NULL,
+    updated_at TIMESTAMP NULL,
+
+    FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (donor_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+--------------------------------------------------
+-- TRANSPLANT INFOS TABLE
+--------------------------------------------------
+CREATE TABLE transplant_infos (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    donor_id BIGINT UNSIGNED NOT NULL,
+    receiver_id BIGINT UNSIGNED NOT NULL,
+    lab_id BIGINT UNSIGNED NOT NULL,
+    transplant_date DATE NOT NULL,
+    organ_type VARCHAR(255) NOT NULL,
+    outcome VARCHAR(255) NOT NULL,
+    condition_notes TEXT NULL,
+    created_at TIMESTAMP NULL,
+    updated_at TIMESTAMP NULL,
+
+    FOREIGN KEY (donor_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (lab_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+--------------------------------------------------
+-- PASSWORD RESET TABLE (Laravel)
+--------------------------------------------------
+CREATE TABLE password_reset_tokens (
+    email VARCHAR(255) PRIMARY KEY,
+    token VARCHAR(255),
+    created_at TIMESTAMP NULL
+);
+
+--------------------------------------------------
+-- FAILED JOBS TABLE (Laravel)
+--------------------------------------------------
+CREATE TABLE failed_jobs (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    uuid VARCHAR(255) UNIQUE,
+    connection TEXT,
+    queue TEXT,
+    payload LONGTEXT,
+    exception LONGTEXT,
+    failed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+--------------------------------------------------
+-- PERSONAL ACCESS TOKENS (if using Sanctum)
+--------------------------------------------------
+CREATE TABLE personal_access_tokens (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    tokenable_type VARCHAR(255),
+    tokenable_id BIGINT UNSIGNED,
+    name VARCHAR(255),
+    token VARCHAR(64) UNIQUE,
+    abilities TEXT,
+    last_used_at TIMESTAMP NULL,
+    expires_at TIMESTAMP NULL,
+    created_at TIMESTAMP NULL,
+    updated_at TIMESTAMP NULL
+);
