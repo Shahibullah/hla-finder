@@ -1,6 +1,12 @@
 Project Description
 # 🧬 HLA Finder
 
+Contributors
+-Ahmmed Shahibullah Shahib
+-Md. Rashakh Rahman Shompod
+-Dabobbroto Chakroborty
+-Talha Bin Zakir
+
 HLA Finder is a web-based system  designed to match donors and receivers based on Human Leukocyte Antigen (HLA) compatibility.  
 The platform supports role-based access for Admin, Donor, Receiver, and Lab users.
 
@@ -31,7 +37,7 @@ Contributors
 - Blade Templating Engine
 - HTML5
 - CSS3
-- JavaScript (Vanilla)
+
 
 ### 🔹 Database
 - MySQL

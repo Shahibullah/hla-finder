@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TransplantInfo;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -9,16 +10,20 @@ class DashboardController extends Controller
 {
     public function home()
     {
-        $activeDonorCount = User::where('role', 'donor')
+        $activeDonors = User::where('role', 'donor')
             ->where('status', 'active')
             ->count();
 
-        return view('home.index', compact('activeDonorCount'));
+        return view('welcome', compact('activeDonors'));
     }
 
     public function dashboard()
     {
         $user = Auth::user();
+
+        if (!$user) {
+            return redirect()->route('login');
+        }
 
         if ($user->role === 'admin') {
             $totalDonors = User::where('role', 'donor')->count();
@@ -26,13 +31,17 @@ class DashboardController extends Controller
             $totalLabs = User::where('role', 'lab')->count();
             $pendingLabs = User::where('role', 'lab')->where('status', 'inactive')->count();
             $activeLabs = User::where('role', 'lab')->where('status', 'active')->count();
+            $totalTransplants = class_exists(\App\Models\TransplantInfo::class)
+                ? TransplantInfo::count()
+                : 0;
 
             return view('admin.dashboard', compact(
                 'totalDonors',
                 'totalReceivers',
                 'totalLabs',
                 'pendingLabs',
-                'activeLabs'
+                'activeLabs',
+                'totalTransplants'
             ));
         }
 
@@ -48,6 +57,6 @@ class DashboardController extends Controller
             return view('lab.dashboard');
         }
 
-        abort(403);
+        abort(403, 'Unauthorized access.');
     }
 }
